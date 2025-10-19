@@ -61,7 +61,7 @@ async function fetchHistoryForRadial() {
     console.log(`Fetching history for: ${month} ${day}`);
     showLoadingSpinners(true);
 
-    const url = `http://localhost:10000/getHistory?month=${month}&day=${day}`;
+    const url = `http://localhost:3000/getHistory?month=${month}&day=${day}`;
 
     try {
         const response = await fetch(url);
@@ -325,4 +325,5 @@ function randomizeDateAndSpin() {
 
     fetchHistoryForRadial(); // Fetch data for the new random date
 }
+
 
