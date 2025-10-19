@@ -1,0 +1,579 @@
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Modern font stack */
+    margin: 0;
+    /* padding-top will be set by JavaScript dynamically */
+    color: #e0e0e0; /* Lighter default text color for dark background */
+    line-height: 1.6;
+    background-color: #1a1a1a; /* Dark background for black gradient theme */
+}
+
+header {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Black gradient background */
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Softer shadow */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure header stays on top */
+}
+
+#todays-history-button {
+    padding: 8px 12px; /* Match nav a padding */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Match nav a border-radius */
+    cursor: pointer;
+    font-size: 1em; /* Match nav a font-size */
+    font-weight: 500; /* Match nav a font-weight */
+    box-shadow: none; /* Remove prominent shadow */
+    transition: all 0.2s ease-in-out; /* Match nav a transition */
+    margin-left: 20px; /* Add margin to separate from other links */
+    text-transform: none; /* Remove uppercase */
+    letter-spacing: normal; /* Remove letter spacing */
+}
+
+#todays-history-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Match nav a hover effect */
+    transform: none; /* Remove scale on hover */
+    box-shadow: none; /* Remove hover shadow */
+}
+
+@media (max-width: 768px) {
+    #todays-history-button {
+        margin: 0 10px; /* Adjust horizontal margin for smaller screens */
+        width: auto;
+        align-self: auto; /* Reset align-self */
+        display: block; /* Make it block for full width in column layout */
+        padding: 8px 0; /* Adjust padding for block display */
+        border-top: 1px solid #eee; /* Add border top like other nav items */
+    }
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white; /* Make links more visible against the header background */
+    font-size: 1em;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+    color: white;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: row; /* Keep buttons horizontal */
+        width: auto;
+        margin-top: 0;
+        justify-content: center; /* Center the nav items */
+    }
+
+    nav li {
+        margin: 0 10px; /* Adjust horizontal margin */
+        text-align: center;
+        width: auto;
+    }
+
+    nav a {
+        display: block;
+        padding: 8px 0;
+        border-top: 1px solid #eee;
+    }
+
+    nav li:first-child a {
+        border-top: none;
+    }
+}
+
+main {
+    max-width: 1200px; /* Limit content width on large screens */
+    margin: 30px auto 20px; /* More top margin for better spacing */
+    padding: 30px 20px;
+    text-align: center;
+    background-color: #222222; /* Dark background for main content */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    /* margin-top will be dynamically adjusted by JavaScript */
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+}
+
+.date-picker-container {
+    margin-top: 30px; /* Increase spacing from header */
+    margin-bottom: 30px; /* Add spacing before history sections */
+}
+
+.date-picker-container label {
+    margin-right: 10px;
+}
+
+.date-picker-container input[type="date"] {
+    padding: 10px;
+    border: 1px solid #555; /* Darker border */
+    border-radius: 6px; /* Slightly more rounded corners */
+    background-color: #333; /* Dark background for input */
+    color: #eee; /* Light text color */
+    font-size: 1em;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.date-picker-container input[type="date"]:focus {
+    outline: none;
+    border-color: #666; /* Lighter border on focus */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+}
+
+.date-picker-container button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.date-picker-container button:hover {
+    background: linear-gradient(135deg, #444444 0%, #666666 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.date-picker-container button:active {
+    transform: translateY(0);
+}
+
+/* Radial Calendar Styles */
+.radial-calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    position: relative; /* Added for positioning the random spin button */
+}
+
+.radial-calendar {
+    position: relative;
+    width: 350px; /* Adjusted size */
+    height: 350px; /* Adjusted size */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #222222 0%, #444444 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.radial-calendar:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.center-summary {
+    position: absolute;
+    width: 100px; /* Adjusted size */
+    height: 100px; /* Adjusted size */
+    border-radius: 50%;
+    background-color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    font-size: 0.8em; /* Adjusted font size */
+    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.center-summary p {
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+.center-summary button {
+    padding: 8px 15px;
+    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-top: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.center-summary button:hover {
+    background: linear-gradient(135deg, #444444 0%, #666666 100%);
+    transform: translateY(-1px);
+}
+
+.center-summary button + button { /* Style for the second button (Random Spin) */
+    margin-top: 8px; /* Add some space between the two buttons */
+}
+
+
+
+.ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-out; /* Add transition for smooth rotation */
+    /* Removed overflow: hidden; to ensure ring items are clickable */
+}
+
+.months-ring {
+    width: 220px; /* Increased size for more space */
+    height: 220px; /* Increased size for more space */
+    z-index: 3;
+}
+
+.days-ring {
+    width: 320px; /* Increased size for more space */
+    height: 320px; /* Increased size for more space */
+    z-index: 2;
+}
+
+.ring-item {
+    position: absolute;
+    color: #ccc;
+    font-size: 1em; /* Increased font size for better visibility and clickability */
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    transform-origin: center; /* Ensure rotation is around its own center */
+}
+
+.ring-item:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.ring-item.selected {
+    color: #ffd700; /* Gold color for selected item */
+    font-weight: bold;
+    transform: scale(1.2);
+}
+
+.history-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items when there are fewer than 3 */
+    gap: 20px; /* Add space between cards */
+    margin-top: 30px;
+    padding: 0 10px; /* Add some horizontal padding */
+}
+
+section {
+    border: none; /* Remove default border */
+    border-radius: 12px; /* More rounded corners */
+    padding: 25px; /* More internal padding */
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px; /* Max width for individual cards */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Stronger shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Longer transition */
+    background: linear-gradient(to bottom right, #333333, #222222); /* Dark gradient background */
+    position: relative;
+    overflow: hidden;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #444444, #666666);
+}
+
+section:hover {
+    transform: translateY(-8px); /* More pronounced lift effect */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+}
+
+/* Style for the "Today's History" button */
+#todays-history-btn {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 10px;
+}
+
+#todays-history-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+@media (max-width: 600px) {
+    section {
+        min-width: 90%; /* Stack sections on very small screens */
+        max-width: 90%;
+    }
+}
+
+section h2 {
+    margin-top: 0;
+    font-size: 2em; /* Even larger heading */
+    color: #ffffff; /* White heading color for dark background */
+    border-bottom: 3px solid #444444; /* Darker border for headings */
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Add a subtle background to content areas for better readability */
+.content-area {
+    background-color: #2a2a2a; /* Darker background for content area */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.content-area p {
+    color: #cccccc; /* Lighter paragraph text for dark background */
+}
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    margin: 20px auto;
+
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+footer {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%); /* Black gradient for footer */
+    color: white;
+    padding: 25px;
+    text-align: center;
+    border-top: none;
+    margin-top: 40px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    font-size: 0.9em;
+}
+
+footer p {
+    margin: 8px 0;
+    color: rgba(255,255,255,0.9);
+}
+
+footer a {
+    color: #ffd700; /* Gold color for links */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #ffeb3b;
+}
+
+
+@media (max-width: 768px) {
+    footer {
+        padding: 20px 15px;
+    }
+
+    footer p {
+        margin: 6px 0;
+        font-size: 0.85em;
+    }
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+    main {
+        margin: 20px auto 10px;
+        padding: 20px 15px;
+        margin-top: 70px;
+    }
+    
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .search-container input[type="text"] {
+        width: 90%;
+        max-width: 100%;
+    }
+    
+    .search-container button {
+        width: 90%;
+        max-width: 100%;
+    }
+    
+    .date-picker-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .date-picker-container label {
+        margin-right: 0;
+    }
+    
+    .history-sections {
+        gap: 15px;
+        padding: 0 5px;
+    }
+    
+    section {
+        min-width: 95%;
+        max-width: 95%;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    header {
+        padding: 12px 15px;
+    }
+    
+    .logo {
+        font-size: 1.5em;
+    }
+    
+    nav li {
+        margin: 3px 0;
+    }
+    
+    nav a {
+        font-size: 0.9em;
+        padding: 6px 0;
+    }
+    
+    main {
+        margin: 15px auto 5px;
+        padding: 15px 10px;
+        margin-top: 65px;
+    }
+    
+    section {
+        padding: 20px 15px;
+    }
+    
+    section h2 {
+        font-size: 1.6em;
+        margin-bottom: 15px;
+    }
+    
+    .content-area {
+        padding: 12px;
+    }
+}
+
+.content-area ul {
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: left;
+}
+
+.content-area li {
+    margin-bottom: 10px;
+}
+
+.search-container {
+    margin: 20px auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-container input[type="text"] {
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 80%;
+    font-size: 1em;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.search-container input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+    transform: translateY(-1px);
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-container button:hover {
+    background: linear-gradient(135deg, #444444 0%, #666666 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.search-container button:active {
+    transform: translateY(0);
+}

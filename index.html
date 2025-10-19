@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Today</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">History Today</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Explore Dates</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#" id="todays-history-button">Today's History</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="radial-calendar-container">
+            <div class="radial-calendar">
+                <div class="center-summary">
+                    <p id="selected-date-summary">Select a date</p>
+                    <button onclick="fetchHistoryForRadial()">Show History</button>
+                    <button id="random-spin-button">Random Spin</button>
+                </div>
+                <div class="ring months-ring"></div>
+                <div class="ring days-ring"></div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search events, births, or deaths...">
+            <button onclick="applySearchFilter()">Search</button>
+        </div>
+        <div class="history-sections">
+            <section id="events">
+                <h2>Events</h2>
+                <div class="content-area">
+                    <div class="spinner" style="display: none;"></div>
+                </div>
+            </section>
+            <section id="births">
+                <h2>Births</h2>
+                <div class="content-area">
+                    <div class="spinner" style="display: none;"></div>
+                </div>
+            </section>
+            <section id="deaths">
+                <h2>Deaths</h2>
+                <div class="content-area">
+                    <div class="spinner" style="display: none;"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 History Today. All rights reserved.</p>
+        <p><a href="https://srikardraco4.github.io/port1/" target="_blank">GitHub Repository</a></p>
+        <p>Data sourced from Wikipedia</p>
+    </footer>
+</body>
+</html>
+</html>
