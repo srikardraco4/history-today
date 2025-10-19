@@ -325,8 +325,3 @@ function randomizeDateAndSpin() {
 
     fetchHistoryForRadial(); // Fetch data for the new random date
 }
-
-
-
-
-
