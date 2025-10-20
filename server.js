@@ -5,9 +5,11 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 10000; // Changed to 10000 for Render
+const port = process.env.PORT || 10000;
 
+// Enable CORS for all routes
 app.use(cors());
+
 // Serve static files from the same directory
 app.use(express.static(__dirname));
 
@@ -79,7 +81,7 @@ app.get('/getHistory', async (req, res) => {
     }
 });
 
-// Serve index.html for all other routes (for client-side routing)
+// Serve index.html for all other routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });

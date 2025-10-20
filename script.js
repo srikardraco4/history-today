@@ -61,17 +61,21 @@ async function fetchHistoryForRadial() {
     console.log(`Fetching history for: ${month} ${day}`);
     showLoadingSpinners(true);
 
-    const url = `http://localhost:10000/getHistory?month=${month}&day=${day}`;
+    // Use the same origin as the current page
+    const baseUrl = window.location.origin;
+    const url = `${baseUrl}/getHistory?month=${month}&day=${day}`;
+
+    console.log('Fetching from URL:', url); // Debug log
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`Network response was not ok: ${response.status}`);
         }
         const data = await response.json();
 
-        currentHistoryData = data; // Store the fetched data
-        displayFilteredData(currentHistoryData); // Display all data initially
+        currentHistoryData = data;
+        displayFilteredData(currentHistoryData);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         displayError();
