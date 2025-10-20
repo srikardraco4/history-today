@@ -28,10 +28,8 @@ async function fetchHistoryForRadial() {
     console.log(`Fetching history for: ${month} ${day}`);
     showLoadingSpinners(true);
 
-    // Smart URL detection - works for both local and production
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const baseUrl = isLocalhost ? 'http://localhost:10000' : '';
-    const url = `${baseUrl}/getHistory?month=${month}&day=${day}`;
+    // Use relative URL - the browser will automatically use the same origin
+    const url = `/getHistory?month=${month}&day=${day}`;
 
     try {
         const response = await fetch(url);
@@ -51,6 +49,36 @@ async function fetchHistoryForRadial() {
 }
 
 
+async function fetchHistoryForRadial() {
+    const month = monthNames[selectedRadialMonth];
+    const day = selectedRadialDay;
+
+    if (!month || !day) {
+        alert('Please select a complete date.');
+        return;
+    }
+
+    console.log(`Fetching history for: ${month} ${day}`);
+    showLoadingSpinners(true);
+
+    const url = `http://localhost:10000/getHistory?month=${month}&day=${day}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        currentHistoryData = data; // Store the fetched data
+        displayFilteredData(currentHistoryData); // Display all data initially
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        displayError();
+    } finally {
+        showLoadingSpinners(false);
+    }
+}
 
 function applySearchFilter() {
     const searchInput = document.getElementById('search-input');

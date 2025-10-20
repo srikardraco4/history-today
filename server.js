@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 10000; // Changed to 10000 for Render
 
 app.use(cors());
 // Serve static files from the same directory
